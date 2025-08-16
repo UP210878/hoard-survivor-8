@@ -1,10 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://bltgmqf6ivcis"]
+[gd_scene load_steps=8 format=3 uid="uid://bltgmqf6ivcis"]
 
 [ext_resource type="Script" uid="uid://b5li5fnpgjoae" path="res://Scripts/ArcaneWave.cs" id="1_4tunn"]
+[ext_resource type="Shader" uid="uid://08kmq8xrriso" path="res://Shader/Spells/ArcaneWave/innerwave_shader.tres" id="2_7qmtq"]
+[ext_resource type="Shader" uid="uid://ew3u2587tgsn" path="res://Shader/Spells/ArcaneWave/wave_effect.tres" id="3_0et56"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nw1cw"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4tunn"]
+render_priority = 1
+shader = ExtResource("2_7qmtq")
+shader_parameter/Color = Color(1.5, 1, 2, 1)
+shader_parameter/Fresnel_Power = 1.0
+
 [sub_resource type="BoxMesh" id="BoxMesh_4tunn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wkrlv"]
+render_priority = 2
+shader = ExtResource("3_0et56")
+shader_parameter/Color = Color(0.540662, 0.336974, 0.738991, 1)
+shader_parameter/Speed = Vector2(0.33, 1.07)
 
 [node name="ArcaneWave" type="Area3D"]
 collision_mask = 5
@@ -16,6 +30,12 @@ shape = SubResource("BoxShape3D_nw1cw")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 0.2, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_4tunn")
+mesh = SubResource("BoxMesh_4tunn")
+
+[node name="Effect" type="MeshInstance3D" parent="."]
+transform = Transform3D(5.075, 0, 0, 0, 1.07505, 0, 0, 0, 0.238898, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_wkrlv")
 mesh = SubResource("BoxMesh_4tunn")
 
 [node name="Timer" type="Timer" parent="."]
